@@ -1,66 +1,53 @@
-import random
+# Hangman Game
 
-WORDS = [
-    "python", "hangman", "computer", "keyboard", "programming",
-    "challenge", "guitar", "garden", "library", "rocket",
-    "planet", "jungle", "puzzle", "window", "forest"
-]
+A simple command-line Hangman game written in Python.
 
-def choose_word():
-    return random.choice(WORDS)
+## Overview
 
-def display_word(word, guessed_letters):
-    result = ""
-    for letter in word:
-        if letter in guessed_letters:
-            result += letter + " "
-        else:
-            result += "_ "
-    return result.strip()
+This project lets players guess a hidden word letter by letter. Each incorrect guess increases the number of wrong attempts, and the game ends when the player either guesses the word correctly or runs out of chances.
 
-def hangman():
-    word = choose_word()
-    guessed_letters = set()
-    wrong_guesses = 0
-    max_wrong = 6
+## Features
 
-    print("Welcome to Hangman!")
-    print("Guess the hidden word one letter at a time.")
+- Random word selection from a built-in list
+- Letter-by-letter guessing
+- Wrong-attempt tracking
+- Win/lose messages
+- Option to play again after each round
 
-    while wrong_guesses < max_wrong:
-        print("\nWord: " + display_word(word, guessed_letters))
-        print("Wrong guesses left:", max_wrong - wrong_guesses)
+## How to Run
 
-        guess = input("Enter a letter: ").lower()
+1. Make sure Python 3 is installed on your system.
+2. Save the game script as `hangman.py`.
+3. Run:
 
-        if len(guess) != 1 or not guess.isalpha():
-            print("Please enter a single alphabet letter.")
-            continue
+```bash
+python hangman.py
+```
 
-        if guess in guessed_letters:
-            print("You already guessed that letter!")
-            continue
+## Gameplay
 
-        guessed_letters.add(guess)
+- The game displays the word with underscores for hidden letters.
+- Enter one letter at a time.
+- If the letter is in the word, it is revealed.
+- If not, the number of wrong guesses increases.
+- You win by guessing all letters before the allowed attempts are exhausted.
 
-        if guess in word:
-            print("Correct!")
-        else:
-            print("Wrong!")
-            wrong_guesses += 1
+## Example
 
-        if all(letter in guessed_letters for letter in set(word)):
-            print("\nYou win! The word was:", word)
-            break
+```text
+Welcome to Hangman!
+Guess the hidden word one letter at a time.
 
-    else:
-        print("\nYou lose! The word was:", word)
+Word: _ _ _ _ _
+Wrong guesses left: 6
+Enter a letter: a
+Correct!
+```
 
-    replay = input("Do you want to play again? (y/n): ").lower()
-    if replay == "y":
-        hangman()
-    else:
-        print("Thanks for playing!")
+## Project Structure
 
-if __name__ == "__main__":
-    hangman()
+- `hangman.py` — main game logic
+
+## License
+
+This project is provided for educational purposes.
